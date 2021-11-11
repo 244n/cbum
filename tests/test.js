@@ -7,7 +7,7 @@ chai.should();
 // devendencies
 const config = require("../config");
 const knex = require("knex")(config.db);
-const { setupServer } = require("../server");
+const { setupServer } = require("../src/server");
 const data = require("../data");
 
 // test

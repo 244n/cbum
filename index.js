@@ -1,4 +1,4 @@
-const { setupServer } = require("./server");
+const { setupServer } = require("./src/server");
 const config = require("./config");
 
 const server = setupServer();
