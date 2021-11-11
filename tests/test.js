@@ -17,17 +17,17 @@ const server = setupServer();
 describe("API Test", () => {
   let request;
 
-  before(async () => {
+  before(() => {
     request = chai.request(server).keepOpen();
     // pre-set parts
-    const createPart = (part) => request.post("/api/parts").send(part);
+    const createPart = async (part) => await request.post("/api/parts").send(part);
     Promise.all(data.parts.map(createPart));
     // pre-set muscles
-    const createMuscle = (muscle) => request.post("/api/muscles").send(muscle);
+    const createMuscle = async (muscle) => await request.post("/api/muscles").send(muscle);
     Promise.all(data.muscles.map(createMuscle));
   });
 
-  beforeEach(async () => {
+  beforeEach(() => {
     // Setup
     request = chai.request(server).keepOpen();
   });
