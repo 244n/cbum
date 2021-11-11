@@ -1,6 +1,5 @@
 module.exports = {
   // database connection configs
-  // You might want to update this
   db: {
     client: "pg",
     connection: process.env.DB_URL || {

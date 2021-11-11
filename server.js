@@ -18,9 +18,20 @@ const setupServer = () => {
       .then((muscle) => res.status(201).json(muscle))
       .catch((err) => {
         if (err.message === "That muscle already exists") {
-          //TODO 既に存在する筋肉を返すようにする
-          return res.status(400).send(err.message);
+          return models.muscles
+            .get({ musclename: req.body.musclename })
+            .then((muscle) => res.status(200).json(muscle));
         }
+        return res.status(400).send(err.message);
+      });
+  });
+
+  app.get("/api/muscles", (req, res) => {
+    models.muscles
+      .get({ musclename: req.body.musclename })
+      .then((muscle) => res.status(200).json(muscle))
+      .catch((err) => {
+        console.log(err);
         return res.status(400).send(err.message);
       });
   });
