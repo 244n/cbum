@@ -41,7 +41,7 @@ describe("", () => {
         // Exercise
         const muscle = { musclename: "muscle1", parts: 1 };
         const res1 = await request.post("/api/muscles").send(muscle);
-        const res2 = await request.get("/api/muscles/" + muscle.musclename);
+        const res2 = await request.get(`/api/muscles/${muscle.musclename}`);
 
         // Assert
         res1.should.have.status(201);
@@ -53,7 +53,7 @@ describe("", () => {
       it("able to update muscle", async () => {
         // Exercise
         const patch = { parts: 3 };
-        const res1 = await request.update("/api/muscles/muscle1").send(patch);
+        const res1 = await request.patch("/api/muscles/muscle1").send(patch);
         const res2 = await request.get("/api/muscles/muscle1");
 
         // Assert

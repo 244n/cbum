@@ -15,7 +15,7 @@ const setupServer = () => {
   app.post("/api/muscles", (req, res) => {
     const { musclename, parts } = req.body;
     models.muscles
-      .create({ musclename: musclename, parts: parts })
+      .create({ musclename, parts })
       .then((muscle) => res.status(201).json(muscle))
       .catch((err) => {
         if (err.message === "That muscle already exists") {
@@ -30,7 +30,7 @@ const setupServer = () => {
   app.get("/api/muscles/:musclename", (req, res) => {
     const { musclename } = req.params;
     models.muscles
-      .get({ musclename: musclename })
+      .get({ musclename })
       .then((muscle) => res.status(200).json(muscle))
       .catch((err) => {
         return res.status(400).send(err.message);
@@ -49,7 +49,18 @@ const setupServer = () => {
   app.delete("/api/muscles/:musclename", (req, res) => {
     const { musclename } = req.params;
     models.muscles
-      .delete({ musclename: musclename })
+      .delete({ musclename })
+      .then(() => res.status(204).end())
+      .catch((err) => {
+        return res.status(400).send(err.message);
+      });
+  });
+
+  app.patch("/api/muscles/:musclename", (req, res) => {
+    const { musclename } = req.params;
+    const patch = req.body;
+    models.muscles
+      .update({ musclename }, patch)
       .then(() => res.status(204).end())
       .catch((err) => {
         return res.status(400).send(err.message);

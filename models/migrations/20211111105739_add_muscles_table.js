@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
   // create the 'muscles' table with three columns
   return knex.schema.createTable("muscles", (t) => {
@@ -10,8 +9,8 @@ exports.up = function(knex, Promise) {
       .notNullable() // add a not-null constraint to this column
       .index(); // index it
 
-      t.integer("parts", 2) // maximum length of 15 characters
-      .notNullable() // add a not-null constraint to this column
+    t.integer("parts", 2) // maximum length of 15 characters
+      .notNullable(); // add a not-null constraint to this column
   });
 };
 
