@@ -17,19 +17,11 @@ const server = setupServer();
 describe("API Test", () => {
   let request;
 
-  // pre-set
-  before(() => {
-    // TODO データが全量反映しきらない時がある問題を解消する
-    request = chai.request(server).keepOpen();
-    const createPart = (part) => request.post("/api/parts").send(part);
-    const createMuscle = (muscle) => request.post("/api/muscles").send(muscle);
-    Promise.all(data.parts.map(createPart));
-    Promise.all(data.muscles.map(createMuscle));
-  });
-
   beforeEach(() => {
     // Setup
     request = chai.request(server).keepOpen();
+    const createPart = (part) => request.post("/api/parts").send(part);
+    Promise.all(data.parts.map(createPart));
   });
 
   afterEach(() => {
@@ -95,6 +87,11 @@ describe("API Test", () => {
 
     describe("#list", () => {
       it("able to list muscles", async () => {
+        //setup
+        for (const muscle of data.muscles) {
+          await request.post("/api/muscles").send(muscle);
+        }
+
         // Exercise
         const res1 = await request.get("/api/muscles");
 
