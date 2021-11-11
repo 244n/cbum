@@ -4,7 +4,7 @@
   "description": "Workout menu and muscle management",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/initialize.js && mocha tests/test.js && npm run lint",
+    "test": "node tests/initialize.js && mocha tests/test.js --exit && npm run lint",
     "lint": "eslint --fix .",
     "start": "node index.js",
     "dev": "nodemon index.js",

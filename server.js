@@ -46,7 +46,7 @@ const setupServer = () => {
   });
 
   app.delete("/api/muscles/:musclename", (req, res) => {
-    const {musclename} = req.params
+    const { musclename } = req.params;
     models.muscles
       .delete({ musclename: musclename })
       .then(() => res.status(204).end())
