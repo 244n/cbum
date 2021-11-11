@@ -116,18 +116,23 @@ describe("API Test", () => {
   });
 
   //TODO getを実装したあとで実装する
-  // describe("menus", () => {
-  //   describe("#create", () => {
-  //     it("able to create menus", async () => {
-  //       // Exercise
-  //       const menu = { menuname: "benchpress",  muscleid : 1};
-  //       const res1 = await request.post("/api/menus").send(menu);
-  //       const res2 = await request.get(`/api/menus/${menu.menuname}`);
+  describe("menus", () => {
+    describe("#create", () => {
+      it("able to create menus", async () => {
+        // Exercise
+        const menu = {
+          name: "bench press",
+          sets: 5,
+          reps: 5,
+          muscle_id: 3,
+        };
+        const res1 = await request.post("/api/menus").send(menu);
+        const res2 = await request.get(`/api/menus/${menu.name}`);
 
-  //       // Assert
-  //       res1.should.have.status(201);
-  //       JSON.parse(res2.text).menuname.should.equal(menu.menuname);
-  //     });
-  //   });
-  // });
+        // Assert
+        res1.should.have.status(201);
+        JSON.parse(res2.text).name.should.equal(menu.name);
+      });
+    });
+  });
 });

@@ -1,22 +1,27 @@
 module.exports = (knex) => {
   return (params) => {
-    const { id, name } = params;
+    const { name, sets, reps, muscle_id } = params;
 
-    return knex("parts")
-      .insert({ id, name: name.toLowerCase() })
+    return knex("menus")
+      .insert({
+        name: name.toLowerCase(),
+        sets,
+        reps,
+        muscle_id,
+      })
       .then(() => {
-        return knex("parts")
+        return knex("menus")
           .where({ name: name.toLowerCase() })
           .select();
       })
-      .then((parts) => parts.pop())
+      .then((menus) => menus.pop())
       .catch((err) => {
         // sanitize known errors
         if (
           err.message.match("duplicate key value") ||
           err.message.match("UNIQUE constraint failed")
         ) {
-          return Promise.reject(new Error("That part already exists"));
+          return Promise.reject(new Error("That menu already exists"));
         }
 
         // throw unknown errors
