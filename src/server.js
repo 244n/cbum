@@ -8,13 +8,13 @@ const musclesRouter = require("./routers/muscles");
 const menusRouter = require("./routers/menus");
 
 // swagger
-const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('../swagger_output.json')
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("../swagger_output.json");
 
 const setupServer = () => {
   // Midleware
   app.use(express.json());
-  app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+  app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
   // router
   app.use("/api/parts", partsRouter);

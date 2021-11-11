@@ -15,6 +15,6 @@ const tables = ["muscles", "parts", "menus"];
 Promise.all(tables.map(clearTable)).then(process.exit);
 
 const resetSeq = async () => {
-  await knex.raw("select setval('menus_id_seq', 1)");
+  await knex.raw("select setval('menus_id_seq', 1, false)");
 };
 resetSeq(knex);
