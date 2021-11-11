@@ -4,9 +4,18 @@ module.exports = (knex) => {
 
     return knex("muscles")
       .where({ musclename: musclename.toLowerCase() })
-      .del()
-      .catch((err) => {
-        return Promise.reject(err);
+      .select()
+      .then((muscle) => {
+        if (muscle.length) {
+          return knex("muscles")
+            .where({ musclename: musclename.toLowerCase() })
+            .del()
+            .catch((err) => {
+              return Promise.reject(err);
+            });
+        } else {
+          return Promise.reject(new Error("That muscle does not exists"));
+        }
       });
   };
 };
