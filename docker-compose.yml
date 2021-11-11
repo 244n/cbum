@@ -13,8 +13,8 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=cbum
     ports:
-      - 3001:5432
-      - 3002:80
+      - 4001:5432
+      - 4002:80
 
 volumes:
   postgres_data:

@@ -15,7 +15,14 @@ const setupServer = () => {
   app.post("/api/muscles", (req, res) => {
     models.muscles
       .create({ musclename: req.body.musclename })
-      .then((muscle) => res.status(201).json(muscle));
+      .then((muscle) => res.status(201).json(muscle))
+      .catch((err) => {
+        if (err.message === "That muscle already exists") {
+          //TODO 既に存在する筋肉を返すようにする
+          return res.status(400).send(err.message);
+        }
+        return res.status(400).send(err.message);
+      });
   });
 
   return app;
