@@ -26,16 +26,17 @@ const setupServer = () => {
       });
   });
 
-  app.get("/api/muscles", (req, res) => {
+  app.get("/api/muscles/:musclename", (req, res) => {
+    const { musclename } = req.params;
     models.muscles
-      .get({ musclename: req.body.musclename })
+      .get({ musclename: musclename })
       .then((muscle) => res.status(200).json(muscle))
       .catch((err) => {
         return res.status(400).send(err.message);
       });
   });
 
-  app.get("/api/muscles/list", (req, res) => {
+  app.get("/api/muscles", (req, res) => {
     models.muscles
       .list()
       .then((muscles) => res.status(200).json(muscles))
@@ -44,9 +45,10 @@ const setupServer = () => {
       });
   });
 
-  app.delete("/api/muscles", (req, res) => {
+  app.delete("/api/muscles/:musclename", (req, res) => {
+    const {musclename} = req.params
     models.muscles
-      .delete({ musclename: req.body.musclename })
+      .delete({ musclename: musclename })
       .then(() => res.status(204).end())
       .catch((err) => {
         return res.status(400).send(err.message);

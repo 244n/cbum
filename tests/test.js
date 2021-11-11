@@ -41,25 +41,38 @@ describe("", () => {
         // Exercise
         const muscle = { musclename: "muscle1" };
         const res1 = await request.post("/api/muscles").send(muscle);
-        const res2 = await request.get("/api/muscles").send(muscle);
+        const res2 = await request.get("/api/muscles/"+muscle.musclename);
 
         // Assert
         res1.should.have.status(201);
-        res1.should.be.json;
+        JSON.parse(res2.text).musclename.should.equal(muscle.musclename);
+      });
+    });
+
+    describe("#update", () => {
+      it("able to update muscle", async () => {
+        // Exercise
+        const muscle = { musclename: "muscle111" };
+        const res1 = await request.update("/api/muscles/muscle1").send(muscle);
+        const res2 = await request.get("/api/muscles/"+muscle.musclename);
+
+        // Assert
+        res1.should.have.status(204);
         JSON.parse(res2.text).musclename.should.equal(muscle.musclename);
       });
     });
 
     describe("#delete", () => {
-      it("able to create muscle", async () => {
+      it("able to delete muscle", async () => {
         // Exercise
         const muscle = { musclename: "muscle1" };
-        const res1 = await request.delete("/api/muscles").send(muscle);
-        const res2 = await request.get("/api/muscles").send(muscle);
+        const res1 = await request.post("/api/muscles").send(muscle);
+        const res2 = await request.delete("/api/muscles/"+muscle.musclename);
+        const res3 = await request.get("/api/muscles/"+muscle.musclename);
 
         // Assert
-        res1.should.have.status(204);
-        res2.text.should.equal("Error finding muscle muscle1");
+        res2.should.have.status(204);
+        res3.text.should.equal("Error finding muscle muscle1");
       });
     });
   });
