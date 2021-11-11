@@ -9,7 +9,7 @@ const menusRouter = require("./routers/menus");
 
 // swagger
 const swaggerUi = require("swagger-ui-express");
-const swaggerFile = require("../swagger_output.json");
+const swaggerFile = require("../swagger.json");
 
 const setupServer = () => {
   // Midleware
