@@ -6,3 +6,9 @@
 PostgresのDokcerコンテナが起動します。
 
 DBへの接続は`psql -h 127.0.0.1 -p 3001 -U postgres -d cbum`を実行して確認してください。
+
+
+## API
+| method | url | parameter | body | 用途 |
+| - | - | - | - | - |
+| POST | `/api/muscles` | - | `{"musclename":"test4"}` | create muscle |
