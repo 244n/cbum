@@ -7,7 +7,6 @@ chai.should();
 // devendencies
 const config = require("../config");
 const knex = require("knex")(config.db);
-const models = require("../models")(knex);
 const { setupServer } = require("../server");
 
 // test
@@ -28,12 +27,12 @@ describe("", () => {
       it("able to connect to database", () =>
         knex
           .raw("select 1+1 as result")
-          .catch(() => assert.fail("unable to connect to db")));
+          .catch(() => chai.assert.fail("unable to connect to db")));
 
       it("has run the initial migrations", () =>
         knex("muscles")
           .select()
-          .catch(() => assert.fail("muscles table is not found.")));
+          .catch(() => chai.assert.fail("muscles table is not found.")));
     });
 
     describe("#create", () => {

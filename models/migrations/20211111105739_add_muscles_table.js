@@ -1,4 +1,4 @@
-exports.up = function(knex, Promise) {
+exports.up = function(knex) {
   // create the 'muscles' table with three columns
   return knex.schema.createTable("muscles", (t) => {
     t.increments() // auto-incrementing id column
@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
   });
 };
 
-exports.down = function(knex, Promise) {
+exports.down = function(knex) {
   // undo this migration by destroying the 'muscles' table
   return knex.schema.dropTable("muscles");
 };

@@ -1,5 +1,3 @@
-const muscles = require(".");
-
 module.exports = (knex) => {
   return (params, patch) => {
     const { musclename } = params;
