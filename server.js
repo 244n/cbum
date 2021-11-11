@@ -31,7 +31,6 @@ const setupServer = () => {
       .get({ musclename: req.body.musclename })
       .then((muscle) => res.status(200).json(muscle))
       .catch((err) => {
-        console.log(err);
         return res.status(400).send(err.message);
       });
   });
@@ -41,7 +40,6 @@ const setupServer = () => {
       .list()
       .then((muscles) => res.status(200).json(muscles))
       .catch((err) => {
-        console.log(err);
         return res.status(400).send(err.message);
       });
   });

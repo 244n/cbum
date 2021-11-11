@@ -49,5 +49,18 @@ describe("", () => {
         JSON.parse(res2.text).musclename.should.equal(muscle.musclename);
       });
     });
+
+    describe("#delete", () => {
+      it("able to create muscle", async () => {
+        // Exercise
+        const muscle = { musclename: "muscle1" };
+        const res1 = await request.delete("/api/muscles").send(muscle);
+        const res2 = await request.get("/api/muscles").send(muscle);
+
+        // Assert
+        res1.should.have.status(204);
+        res2.text.should.equal("Error finding muscle muscle1");
+      });
+    });
   });
 });
