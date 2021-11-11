@@ -11,7 +11,21 @@ const setupServer = () => {
   // Midleware
   app.use(express.json({ type: "application/json", limit: "50mb" }));
 
-  // API
+  // Parts API
+  app.post("/api/parts", (req, res) => {
+    models.parts
+      .create(req.body)
+      .then((part) => res.status(201).json(part))
+      .catch((err) => {
+        if (err.message === "That part already exists") {
+          //TODO getを実装したあとで、既に存在する部位を返すようにする
+          return res.status(400).send(err.message);
+        }
+        return res.status(400).send(err.message);
+      });
+  });
+
+  // Muscle API
   app.post("/api/muscles", (req, res) => {
     models.muscles
       .create(req.body)

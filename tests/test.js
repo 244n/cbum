@@ -13,7 +13,15 @@ const { setupServer } = require("../server");
 const server = setupServer();
 describe("", () => {
   let request;
-  beforeEach(() => {
+  before(async () => {
+    request = chai.request(server).keepOpen();
+    await request.post("/api/parts").send({ id: 1, partname: "chest" });
+    await request.post("/api/parts").send({ id: 2, partname: "back" });
+    await request.post("/api/parts").send({ id: 3, partname: "arms" });
+    await request.post("/api/parts").send({ id: 4, partname: "legs" });
+    await request.post("/api/parts").send({ id: 5, partname: "shoulders" });
+  });
+  beforeEach(async () => {
     // Setup
     request = chai.request(server).keepOpen();
   });
