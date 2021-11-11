@@ -13,8 +13,9 @@ app.post("/", (req, res) => {
     .then((part) => res.status(201).json(part))
     .catch((err) => {
       if (err.message === "That part already exists") {
-        //TODO getを実装したあとで、既に存在する部位を返すようにする
-        return res.status(400).send(err.message);
+        return models.parts
+          .get(req.body)
+          .then((part) => res.status(409).json(part));
       }
       return res.status(400).send(err.message);
     });

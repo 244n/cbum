@@ -115,7 +115,6 @@ describe("API Test", () => {
     });
   });
 
-  //TODO getを実装したあとで実装する
   describe("menus", () => {
     describe("#create", () => {
       it("able to create menus", async () => {

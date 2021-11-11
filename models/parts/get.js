@@ -2,7 +2,7 @@ module.exports = (knex) => {
   return (params) => {
     const name = params.name;
 
-    return knex("menus")
+    return knex("parts")
       .where({ name: name.toLowerCase() })
       .select()
       .then((menus) => {

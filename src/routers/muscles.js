@@ -15,7 +15,7 @@ app.post("/", (req, res) => {
       if (err.message === "That muscle already exists") {
         return models.muscles
           .get({ name: req.body.name })
-          .then((muscle) => res.status(200).json(muscle));
+          .then((muscle) => res.status(409).json(muscle));
       }
       return res.status(400).send(err.message);
     });

@@ -13,7 +13,9 @@ app.post("/", (req, res) => {
     .then((menu) => res.status(201).json(menu))
     .catch((err) => {
       if (err.message === "That menu already exists") {
-        return res.status(400).send(err.message);
+        return models.menus
+          .get(req.body)
+          .then((part) => res.status(409).json(part));
       }
       return res.status(400).send(err.message);
     });
