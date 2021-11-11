@@ -8,23 +8,25 @@ chai.should();
 const config = require("../config");
 const knex = require("knex")(config.db);
 const { setupServer } = require("../server");
+const data = require("../data");
 
 // test
 const server = setupServer();
-describe("", () => {
+describe("API Test", () => {
   let request;
+
   before(async () => {
+    // Setup
     request = chai.request(server).keepOpen();
-    await request.post("/api/parts").send({ id: 1, partname: "chest" });
-    await request.post("/api/parts").send({ id: 2, partname: "back" });
-    await request.post("/api/parts").send({ id: 3, partname: "arms" });
-    await request.post("/api/parts").send({ id: 4, partname: "legs" });
-    await request.post("/api/parts").send({ id: 5, partname: "shoulders" });
+    const createPart = (part) => request.post("/api/parts").send(part);
+    Promise.all(data.parts.map(createPart));
   });
+
   beforeEach(async () => {
     // Setup
     request = chai.request(server).keepOpen();
   });
+
   afterEach(() => {
     // Teardown
     request.close();

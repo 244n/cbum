@@ -25,6 +25,15 @@ const setupServer = () => {
       });
   });
 
+  app.get("/api/parts", (req, res) => {
+    models.parts
+      .list()
+      .then((parts) => res.status(200).json(parts))
+      .catch((err) => {
+        return res.status(400).send(err.message);
+      });
+  });
+
   // Muscle API
   app.post("/api/muscles", (req, res) => {
     models.muscles
