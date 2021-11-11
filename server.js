@@ -13,8 +13,9 @@ const setupServer = () => {
 
   // API
   app.post("/api/muscles", (req, res) => {
+    const { musclename, parts } = req.body;
     models.muscles
-      .create({ musclename: req.body.musclename })
+      .create({ musclename: musclename, parts: parts })
       .then((muscle) => res.status(201).json(muscle))
       .catch((err) => {
         if (err.message === "That muscle already exists") {

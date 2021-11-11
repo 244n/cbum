@@ -39,9 +39,9 @@ describe("", () => {
     describe("#create", () => {
       it("able to create muscle", async () => {
         // Exercise
-        const muscle = { musclename: "muscle1" };
+        const muscle = { musclename: "muscle1", parts: 1 };
         const res1 = await request.post("/api/muscles").send(muscle);
-        const res2 = await request.get("/api/muscles/"+muscle.musclename);
+        const res2 = await request.get("/api/muscles/" + muscle.musclename);
 
         // Assert
         res1.should.have.status(201);
@@ -52,27 +52,25 @@ describe("", () => {
     describe("#update", () => {
       it("able to update muscle", async () => {
         // Exercise
-        const muscle = { musclename: "muscle111" };
-        const res1 = await request.update("/api/muscles/muscle1").send(muscle);
-        const res2 = await request.get("/api/muscles/"+muscle.musclename);
+        const patch = { parts: 3 };
+        const res1 = await request.update("/api/muscles/muscle1").send(patch);
+        const res2 = await request.get("/api/muscles/muscle1");
 
         // Assert
         res1.should.have.status(204);
-        JSON.parse(res2.text).musclename.should.equal(muscle.musclename);
+        JSON.parse(res2.text).parts.should.equal(patch.parts);
       });
     });
 
     describe("#delete", () => {
       it("able to delete muscle", async () => {
         // Exercise
-        const muscle = { musclename: "muscle1" };
-        const res1 = await request.post("/api/muscles").send(muscle);
-        const res2 = await request.delete("/api/muscles/"+muscle.musclename);
-        const res3 = await request.get("/api/muscles/"+muscle.musclename);
+        const res1 = await request.delete("/api/muscles/muscle1");
+        const res2 = await request.get("/api/muscles/muscle1");
 
         // Assert
-        res2.should.have.status(204);
-        res3.text.should.equal("Error finding muscle muscle1");
+        res1.should.have.status(204);
+        res2.text.should.equal("Error finding muscle muscle1");
       });
     });
   });
