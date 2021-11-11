@@ -18,6 +18,7 @@
   "private": false,
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "deep-equal-in-any-order": "^1.1.15",
     "express": "^4.17.1",
     "knex": "^0.15.2",
     "moment": "^2.22.2",

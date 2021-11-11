@@ -1,7 +1,9 @@
 // chai
 const chai = require("chai");
 const chaiHttp = require("chai-http");
+const deepEqualInAnyOrder = require("deep-equal-in-any-order");
 chai.use(chaiHttp);
+chai.use(deepEqualInAnyOrder);
 chai.should();
 
 // devendencies
@@ -80,6 +82,19 @@ describe("API Test", () => {
         // Assert
         res1.should.have.status(204);
         res2.text.should.equal("Error finding muscle muscle1");
+      });
+    });
+  });
+
+  describe("parts", () => {
+    describe("#list", () => {
+      it("able to list muscles", async () => {
+        // Exercise
+        const res1 = await request.get("/api/parts");
+
+        // Assert
+        res1.should.have.status(200);
+        JSON.parse(res1.text).should.deep.equalInAnyOrder(data.parts);
       });
     });
   });
