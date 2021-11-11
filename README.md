@@ -1,7 +1,6 @@
 # cbum
 
-Chris Bumstead に捧ぐ
-https://www.instagram.com/cbum/
+[Chris Bumstead](https://www.instagram.com/cbum/) に捧ぐ
 
 ## 概要
 
