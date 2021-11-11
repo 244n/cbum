@@ -17,13 +17,13 @@ const server = setupServer();
 describe("API Test", () => {
   let request;
 
+  // pre-set
   before(() => {
+    // TODO データが全量反映しきらない時がある問題を解消する
     request = chai.request(server).keepOpen();
-    // pre-set parts
-    const createPart = async (part) => await request.post("/api/parts").send(part);
+    const createPart = (part) => request.post("/api/parts").send(part);
+    const createMuscle = (muscle) => request.post("/api/muscles").send(muscle);
     Promise.all(data.parts.map(createPart));
-    // pre-set muscles
-    const createMuscle = async (muscle) => await request.post("/api/muscles").send(muscle);
     Promise.all(data.muscles.map(createMuscle));
   });
 
@@ -58,7 +58,7 @@ describe("API Test", () => {
     describe("#create", () => {
       it("able to create muscle", async () => {
         // Exercise
-        const muscle = { name: "muscle1", part_id: 1 };
+        const muscle = { id: 99, name: "muscle1", part_id: 1 };
         const res1 = await request.post("/api/muscles").send(muscle);
         const res2 = await request.get(`/api/muscles/${muscle.name}`);
 
@@ -100,6 +100,7 @@ describe("API Test", () => {
 
         // Assert
         res1.should.have.status(200);
+        JSON.parse(res1.text).should.deep.equalInAnyOrder(data.muscles);
       });
     });
   });

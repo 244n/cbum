@@ -1,7 +1,8 @@
 exports.up = function(knex) {
   // create the 'muscles' table with three columns
   return knex.schema.createTable("muscles", (t) => {
-    t.increments() // auto-incrementing id column
+    t.integer("id", 3) // auto-incrementing id column
+      .primary() // primary key
       .index(); // index this column
 
     t.string("name", 20) // maximum length of 15 characters

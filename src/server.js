@@ -8,7 +8,7 @@ const musclesRouter = require("./routers/muscles");
 
 const setupServer = () => {
   // Midleware
-  app.use(express.json({ type: "application/json", limit: "50mb" }));
+  app.use(express.json());
 
   // router
   app.use("/api/parts", partsRouter);
