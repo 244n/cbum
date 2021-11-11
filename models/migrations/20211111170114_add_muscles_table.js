@@ -10,7 +10,9 @@ exports.up = function(knex) {
       .index(); // index it
 
     t.integer("parts", 2) // maximum length of 15 characters
-      .notNullable(); // add a not-null constraint to this column
+      .notNullable() // add a not-null constraint to this column
+      .references("id") // add foreign constraint
+      .inTable("parts");
   });
 };
 
