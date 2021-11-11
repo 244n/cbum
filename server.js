@@ -46,6 +46,15 @@ const setupServer = () => {
       });
   });
 
+  app.delete("/api/muscles", (req, res) => {
+    models.muscles
+      .delete({ musclename: req.body.musclename })
+      .then(() => res.status(204).end())
+      .catch((err) => {
+        return res.status(400).send(err.message);
+      });
+  });
+
   return app;
 };
 

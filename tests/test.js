@@ -12,14 +12,15 @@ const { setupServer } = require("../server");
 
 // test
 const server = setupServer();
-console.log(server)
 describe("", () => {
-  let request1;
-  let request2;
+  let request;
   beforeEach(() => {
     // Setup
-    request1 = chai.request(server);
-    request2 = chai.request(server);
+    request = chai.request(server).keepOpen();
+  });
+  afterEach(() => {
+    // Teardown
+    request.close();
   });
 
   describe("muscles", () => {
@@ -34,19 +35,19 @@ describe("", () => {
           .select()
           .catch(() => assert.fail("muscles table is not found.")));
     });
-    // TODO; fix `Error: Server is not listening`
-    // describe("#create", () => {
-    //   it("able to create muscle", async () => {
-    //     // Exercise
-    //     const muscle = {"musclename":"muscle1"}
-    //     const res1 = await request1.post("/api/muscles").send(muscle);
-    //     const res2 = await request1.get("/api/muscles").send(muscle);
 
-    //     // Assert
-    //     res1.should.have.status(201);
-    //     res1.should.be.json;
-    //     JSON.parse(res2.text).should.deep.equal(muscle);
-    //   });
-    // });
+    describe("#create", () => {
+      it("able to create muscle", async () => {
+        // Exercise
+        const muscle = { musclename: "muscle1" };
+        const res1 = await request.post("/api/muscles").send(muscle);
+        const res2 = await request.get("/api/muscles").send(muscle);
+
+        // Assert
+        res1.should.have.status(201);
+        res1.should.be.json;
+        JSON.parse(res2.text).musclename.should.equal(muscle.musclename);
+      });
+    });
   });
 });
