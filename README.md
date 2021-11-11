@@ -33,7 +33,7 @@ psql -h 127.0.0.1 -p 4001 -U postgres -d cbum
 npm i
 ```
 
-##　テスト
+## テスト
 
 テストの実行：
 
