@@ -18,10 +18,13 @@ describe("API Test", () => {
   let request;
 
   before(async () => {
-    // Setup
     request = chai.request(server).keepOpen();
+    // pre-set parts
     const createPart = (part) => request.post("/api/parts").send(part);
     Promise.all(data.parts.map(createPart));
+    // pre-set muscles
+    const createMuscle = (muscle) => request.post("/api/muscles").send(muscle);
+    Promise.all(data.muscles.map(createMuscle));
   });
 
   beforeEach(async () => {
@@ -55,7 +58,7 @@ describe("API Test", () => {
     describe("#create", () => {
       it("able to create muscle", async () => {
         // Exercise
-        const muscle = { name: "muscle1", parts: 1 };
+        const muscle = { name: "muscle1", part_id: 1 };
         const res1 = await request.post("/api/muscles").send(muscle);
         const res2 = await request.get(`/api/muscles/${muscle.name}`);
 
@@ -89,11 +92,21 @@ describe("API Test", () => {
         res2.text.should.equal("Error finding muscle muscle1");
       });
     });
+
+    describe("#list", () => {
+      it("able to list muscles", async () => {
+        // Exercise
+        const res1 = await request.get("/api/muscles");
+
+        // Assert
+        res1.should.have.status(200);
+      });
+    });
   });
 
   describe("parts", () => {
     describe("#list", () => {
-      it("able to list muscles", async () => {
+      it("able to list parts", async () => {
         // Exercise
         const res1 = await request.get("/api/parts");
 
