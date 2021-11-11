@@ -5,7 +5,7 @@ exports.up = function(knex) {
       .primary() // primary key
       .index(); // index this column
 
-    t.string("partname", 20) // maximum length of 15 characters
+    t.string("name", 20) // maximum length of 15 characters
       .unique() // add a unique constraint to this column
       .notNullable() // add a not-null constraint to this column
       .index(); // index it

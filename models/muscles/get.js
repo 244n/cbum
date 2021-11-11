@@ -1,15 +1,15 @@
 module.exports = (knex) => {
   return (params) => {
-    const musclename = params.musclename;
+    const name = params.name;
 
     return knex("muscles")
-      .where({ musclename: musclename.toLowerCase() })
+      .where({ name: name.toLowerCase() })
       .select()
       .then((users) => {
         if (users.length) {
           return users.pop();
         }
-        throw new Error(`Error finding muscle ${musclename}`);
+        throw new Error(`Error finding muscle ${name}`);
       })
       .catch((err) => {
         return Promise.reject(err);

@@ -1,12 +1,12 @@
 module.exports = (knex) => {
   return (params) => {
-    const { id, partname } = params;
+    const { id, name } = params;
 
     return knex("parts")
-      .insert({ id, partname: partname.toLowerCase() })
+      .insert({ id, name: name.toLowerCase() })
       .then(() => {
         return knex("parts")
-          .where({ partname: partname.toLowerCase() })
+          .where({ name: name.toLowerCase() })
           .select();
       })
       .then((parts) => parts.pop())

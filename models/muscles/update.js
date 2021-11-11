@@ -1,13 +1,13 @@
 module.exports = (knex) => {
   return (params, patch) => {
-    const { musclename } = params;
+    const { name } = params;
     return knex("muscles")
-      .where({ musclename: musclename.toLowerCase() })
+      .where({ name: name.toLowerCase() })
       .select()
       .then((muscle) => {
         if (muscle.length) {
           return knex("muscles")
-            .where({ musclename: musclename.toLowerCase() })
+            .where({ name: name.toLowerCase() })
             .update(patch)
             .catch((err) => {
               return Promise.reject(err);

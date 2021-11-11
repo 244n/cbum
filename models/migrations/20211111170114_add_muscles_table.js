@@ -4,12 +4,12 @@ exports.up = function(knex) {
     t.increments() // auto-incrementing id column
       .index(); // index this column
 
-    t.string("musclename", 20) // maximum length of 15 characters
+    t.string("name", 20) // maximum length of 15 characters
       .unique() // add a unique constraint to this column
       .notNullable() // add a not-null constraint to this column
       .index(); // index it
 
-    t.integer("parts", 2) // maximum length of 15 characters
+    t.integer("part_id", 2) // maximum length of 15 characters
       .notNullable() // add a not-null constraint to this column
       .references("id") // add foreign constraint
       .inTable("parts");

@@ -42,6 +42,11 @@ describe("API Test", () => {
           .catch(() => chai.assert.fail("unable to connect to db")));
 
       it("has run the initial migrations", () =>
+        knex("parts")
+          .select()
+          .catch(() => chai.assert.fail("parts table is not found.")));
+
+      it("has run the second migrations", () =>
         knex("muscles")
           .select()
           .catch(() => chai.assert.fail("muscles table is not found.")));
@@ -50,26 +55,26 @@ describe("API Test", () => {
     describe("#create", () => {
       it("able to create muscle", async () => {
         // Exercise
-        const muscle = { musclename: "muscle1", parts: 1 };
+        const muscle = { name: "muscle1", parts: 1 };
         const res1 = await request.post("/api/muscles").send(muscle);
-        const res2 = await request.get(`/api/muscles/${muscle.musclename}`);
+        const res2 = await request.get(`/api/muscles/${muscle.name}`);
 
         // Assert
         res1.should.have.status(201);
-        JSON.parse(res2.text).musclename.should.equal(muscle.musclename);
+        JSON.parse(res2.text).name.should.equal(muscle.name);
       });
     });
 
     describe("#update", () => {
       it("able to update muscle", async () => {
         // Exercise
-        const patch = { parts: 3 };
+        const patch = { part_id: 3 };
         const res1 = await request.patch("/api/muscles/muscle1").send(patch);
         const res2 = await request.get("/api/muscles/muscle1");
 
         // Assert
         res1.should.have.status(204);
-        JSON.parse(res2.text).parts.should.equal(patch.parts);
+        JSON.parse(res2.text).part_id.should.equal(patch.part_id);
       });
     });
 
@@ -98,4 +103,20 @@ describe("API Test", () => {
       });
     });
   });
+
+  //TODO getを実装したあとで実装する
+  // describe("menus", () => {
+  //   describe("#create", () => {
+  //     it("able to create menus", async () => {
+  //       // Exercise
+  //       const menu = { menuname: "benchpress",  muscleid : 1};
+  //       const res1 = await request.post("/api/menus").send(menu);
+  //       const res2 = await request.get(`/api/menus/${menu.menuname}`);
+
+  //       // Assert
+  //       res1.should.have.status(201);
+  //       JSON.parse(res2.text).menuname.should.equal(menu.menuname);
+  //     });
+  //   });
+  // });
 });

@@ -1,14 +1,14 @@
 module.exports = (knex) => {
   return (params) => {
-    const musclename = params.musclename;
+    const name = params.name;
 
     return knex("muscles")
-      .where({ musclename: musclename.toLowerCase() })
+      .where({ name: name.toLowerCase() })
       .select()
       .then((muscle) => {
         if (muscle.length) {
           return knex("muscles")
-            .where({ musclename: musclename.toLowerCase() })
+            .where({ name: name.toLowerCase() })
             .del()
             .catch((err) => {
               return Promise.reject(err);

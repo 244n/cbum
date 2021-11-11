@@ -1,12 +1,12 @@
 module.exports = (knex) => {
   return (params) => {
-    const { musclename, parts } = params;
+    const { name, parts } = params;
 
     return knex("muscles")
-      .insert({ musclename: musclename.toLowerCase(), parts })
+      .insert({ name: params.name.toLowerCase(), part_id: parts })
       .then(() => {
         return knex("muscles")
-          .where({ musclename: musclename.toLowerCase() })
+          .where({ name: name.toLowerCase() })
           .select();
       })
       .then((muscles) => muscles.pop())

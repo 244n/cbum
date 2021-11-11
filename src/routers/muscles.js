@@ -14,17 +14,17 @@ app.post("/", (req, res) => {
     .catch((err) => {
       if (err.message === "That muscle already exists") {
         return models.muscles
-          .get({ musclename: req.body.musclename })
+          .get({ name: req.body.name })
           .then((muscle) => res.status(200).json(muscle));
       }
       return res.status(400).send(err.message);
     });
 });
 
-app.get("/:musclename", (req, res) => {
-  const { musclename } = req.params;
+app.get("/:name", (req, res) => {
+  const { name } = req.params;
   models.muscles
-    .get({ musclename })
+    .get({ name })
     .then((muscle) => res.status(200).json(muscle))
     .catch((err) => {
       return res.status(400).send(err.message);
@@ -40,21 +40,21 @@ app.get("/", (req, res) => {
     });
 });
 
-app.delete("/:musclename", (req, res) => {
-  const { musclename } = req.params;
+app.delete("/:name", (req, res) => {
+  const { name } = req.params;
   models.muscles
-    .delete({ musclename })
+    .delete({ name })
     .then(() => res.status(204).end())
     .catch((err) => {
       return res.status(400).send(err.message);
     });
 });
 
-app.patch("/:musclename", (req, res) => {
-  const { musclename } = req.params;
+app.patch("/:name", (req, res) => {
+  const { name } = req.params;
   const patch = req.body;
   models.muscles
-    .update({ musclename }, patch)
+    .update({ name }, patch)
     .then(() => res.status(204).end())
     .catch((err) => {
       return res.status(400).send(err.message);

@@ -2,23 +2,23 @@
   "parts": [
     {
       "id": 1,
-      "partname": "chest"
+      "name": "胸"
     },
     {
       "id": 2,
-      "partname": "back"
+      "name": "背中"
     },
     {
       "id": 3,
-      "partname": "arms"
+      "name": "手"
     },
     {
       "id": 4,
-      "partname": "legs"
+      "name": "足"
     },
     {
       "id": 5,
-      "partname": "shoulders"
+      "name": "肩"
     }
   ]
 }
