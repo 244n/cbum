@@ -36,6 +36,16 @@ const setupServer = () => {
       });
   });
 
+  app.get("/api/muscles/list", (req, res) => {
+    models.muscles
+      .list()
+      .then((muscles) => res.status(200).json(muscles))
+      .catch((err) => {
+        console.log(err);
+        return res.status(400).send(err.message);
+      });
+  });
+
   return app;
 };
 
